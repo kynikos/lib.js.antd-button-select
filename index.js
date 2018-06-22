@@ -31,6 +31,8 @@ var ButtonSelect = function (_Component) {
 
     var _this = _possibleConstructorReturn(this, (ButtonSelect.__proto__ || Object.getPrototypeOf(ButtonSelect)).call(this, props));
 
+    _initialiseProps.call(_this);
+
     var defaultSelected = props.defaultSelected,
         multiple = props.multiple;
 
@@ -46,41 +48,13 @@ var ButtonSelect = function (_Component) {
   }
 
   _createClass(ButtonSelect, [{
-    key: 'handleClick',
-    value: function handleClick(value) {
-      // eslint-disable-line max-statements
-      var _props = this.props,
-          multiple = _props.multiple,
-          onChange = _props.onChange;
-      var selected = this.state.selected;
-
-      var newSelected = void 0;
-
-      if (multiple) {
-        if (selected.includes(value)) {
-          newSelected = selected.filter(function (sValue) {
-            return sValue !== value;
-          });
-        } else {
-          newSelected = selected.concat(value).sort();
-        }
-      } else if (selected === value) {
-        newSelected = null;
-      } else {
-        newSelected = value;
-      }
-
-      this.setState({ selected: newSelected });
-      onChange(newSelected);
-    }
-  }, {
     key: 'render',
     value: function render() {
       var _this2 = this;
 
-      var _props2 = this.props,
-          options = _props2.options,
-          multiple = _props2.multiple;
+      var _props = this.props,
+          options = _props.options,
+          multiple = _props.multiple;
       var selected = this.state.selected;
 
 
@@ -112,5 +86,36 @@ var ButtonSelect = function (_Component) {
 
   return ButtonSelect;
 }(Component);
+
+var _initialiseProps = function _initialiseProps() {
+  var _this3 = this;
+
+  this.handleClick = function (value) {
+    // eslint-disable-line max-statements
+    var _props2 = _this3.props,
+        multiple = _props2.multiple,
+        onChange = _props2.onChange;
+    var selected = _this3.state.selected;
+
+    var newSelected = void 0;
+
+    if (multiple) {
+      if (selected.includes(value)) {
+        newSelected = selected.filter(function (sValue) {
+          return sValue !== value;
+        });
+      } else {
+        newSelected = selected.concat(value).sort();
+      }
+    } else if (selected === value) {
+      newSelected = null;
+    } else {
+      newSelected = value;
+    }
+
+    _this3.setState({ selected: newSelected });
+    onChange(newSelected);
+  };
+};
 
 module.exports.ButtonSelect = ButtonSelect;

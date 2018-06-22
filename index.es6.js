@@ -21,7 +21,7 @@ class ButtonSelect extends Component {
     }
   }
 
-  handleClick(value) { // eslint-disable-line max-statements
+  handleClick = (value) => { // eslint-disable-line max-statements
     const {multiple, onChange} = this.props
     const {selected} = this.state
     let newSelected

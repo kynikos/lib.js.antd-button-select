@@ -53,7 +53,7 @@ class ButtonSelect extends Component {
       isSelected = (value) => selected === value
     }
 
-    return h(AntDButton.Group, {},
+    return h(AntDButton.Group, {style: {whiteSpace: 'nowrap'}},
       ...options.map(([value, text]) => h(AntDButton, {
         type: isSelected(value) ? 'primary' : 'default',
         onClick: () => this.handleClick(value),

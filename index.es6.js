@@ -4,7 +4,7 @@
 // https://github.com/kynikos/lib.js.antd-button-select/blob/master/LICENSE
 
 const {Component, createElement: h} = require('react')
-const AntDButton = require('antd/lib/button')
+const AntDButton = require('antd/lib/button').default
 
 
 class ButtonSelect extends Component {

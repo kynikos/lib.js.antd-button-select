@@ -15,8 +15,8 @@
     "compile": "./node_modules/.bin/babel index.es6.js --out-file index.js"
   },
   "dependencies": {
-    "antd": "^3.3.1",
-    "react": "^16.2.0"
+    "antd": "^3.13.5",
+    "react": "^16.8.3"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",

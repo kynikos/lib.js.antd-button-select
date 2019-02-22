@@ -21,7 +21,7 @@ var _require = require('react'),
     Component = _require.Component,
     h = _require.createElement;
 
-var AntDButton = require('antd/lib/button');
+var AntDButton = require('antd/lib/button').default;
 
 var ButtonSelect = function (_Component) {
   _inherits(ButtonSelect, _Component);

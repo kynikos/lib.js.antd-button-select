@@ -54,7 +54,8 @@ var ButtonSelect = function (_Component) {
 
       var _props = this.props,
           options = _props.options,
-          multiple = _props.multiple;
+          multiple = _props.multiple,
+          size = _props.size;
       var selected = this.state.selected;
 
 
@@ -69,7 +70,7 @@ var ButtonSelect = function (_Component) {
         };
       }
 
-      return h.apply(undefined, [AntDButton.Group, { style: { whiteSpace: 'nowrap' } }].concat(_toConsumableArray(options.map(function (_ref) {
+      return h.apply(undefined, [AntDButton.Group, { size: size, style: { whiteSpace: 'nowrap' } }].concat(_toConsumableArray(options.map(function (_ref) {
         var _ref2 = _slicedToArray(_ref, 2),
             value = _ref2[0],
             text = _ref2[1];

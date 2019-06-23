@@ -43,7 +43,7 @@ class ButtonSelect extends Component {
   }
 
   render() {
-    const {options, multiple} = this.props
+    const {options, multiple, size} = this.props
     const {selected} = this.state
 
     let isSelected
@@ -53,7 +53,7 @@ class ButtonSelect extends Component {
       isSelected = (value) => selected === value
     }
 
-    return h(AntDButton.Group, {style: {whiteSpace: 'nowrap'}},
+    return h(AntDButton.Group, {size, style: {whiteSpace: 'nowrap'}},
       ...options.map(([value, text]) => h(AntDButton, {
         type: isSelected(value) ? 'primary' : 'default',
         onClick: () => this.handleClick(value),

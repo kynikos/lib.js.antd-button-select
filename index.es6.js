@@ -3,62 +3,54 @@
 // Licensed under MIT
 // https://github.com/kynikos/lib.js.antd-button-select/blob/master/LICENSE
 
-const {Component, createElement: h} = require('react')
-const AntDButton = require('antd/lib/button').default
+import {createElement as h, useState} from 'react'
+import AntDButton from 'antd/lib/button'
 
 
-class ButtonSelect extends Component {
-  constructor(props) {
-    super(props)
-    const {defaultSelected, multiple} = props
+function handleClick({value, multiple, onChange, selected, setSelected}) {
+  let newSelected
 
-    if (!multiple && Array.isArray(defaultSelected)) {
-      throw new Error('Set the multiple property to select more than one item.')
-    }
-
-    this.state = {
-      selected: defaultSelected,
-    }
-  }
-
-  handleClick = (value) => { // eslint-disable-line max-statements
-    const {multiple, onChange} = this.props
-    const {selected} = this.state
-    let newSelected
-
-    if (multiple) {
-      if (selected.includes(value)) {
-        newSelected = selected.filter((sValue) => sValue !== value)
-      } else {
-        newSelected = selected.concat(value).sort()
-      }
-    } else if (selected === value) {
-      newSelected = null
+  if (multiple) {
+    if (selected.includes(value)) {
+      newSelected = selected.filter((sValue) => sValue !== value)
     } else {
-      newSelected = value
+      newSelected = selected.concat(value).sort()
     }
-
-    this.setState({selected: newSelected})
-    onChange(newSelected)
+  } else if (selected === value) {
+    newSelected = null
+  } else {
+    newSelected = value
   }
 
-  render() {
-    const {options, multiple, size} = this.props
-    const {selected} = this.state
-
-    let isSelected
-    if (multiple) {
-      isSelected = (value) => selected.includes(value)
-    } else {
-      isSelected = (value) => selected === value
-    }
-
-    return h(AntDButton.Group, {size, style: {whiteSpace: 'nowrap'}},
-      ...options.map(([value, text]) => h(AntDButton, {
-        type: isSelected(value) ? 'primary' : 'default',
-        onClick: () => this.handleClick(value),
-      }, text))
-    )
-  }
+  setSelected(newSelected)
+  onChange(newSelected)
 }
-module.exports.ButtonSelect = ButtonSelect
+
+
+export function ButtonSelect({defaultSelected, options, multiple, size}) {
+  if (!multiple && Array.isArray(defaultSelected)) {
+    throw new Error('Set the multiple property to select more than one item.')
+  }
+
+  const [selected, setSelected] = useState(defaultSelected)
+
+  let isSelected
+  if (multiple) {
+    isSelected = (value) => selected.includes(value)
+  } else {
+    isSelected = (value) => selected === value
+  }
+
+  return h(AntDButton.Group, {size, style: {whiteSpace: 'nowrap'}},
+    ...options.map(([value, text]) => h(AntDButton, {
+      type: isSelected(value) ? 'primary' : 'default',
+      onClick: () => handleClick({
+        value,
+        multiple,
+        onChange,
+        selected,
+        setSelected,
+      }),
+    }, text))
+  )
+}
